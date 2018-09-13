@@ -1,3 +1,8 @@
+/*----------------/
+  Changes Made By Jay Patel
+  Assignment#1
+/----------------*/
+
 // Shell.
 
 #include "types.h"
@@ -10,6 +15,10 @@
 #define PIPE  3
 #define LIST  4
 #define BACK  5
+/*----------------/
+  Parsed ORD Command
+/----------------*/
+#define ORD   6
 
 #define MAXARGS 10
 
@@ -23,6 +32,9 @@ struct execcmd {
   char *eargv[MAXARGS];
 };
 
+/*----------------/
+  Redirect Command Struct
+/----------------*/
 struct redircmd {
   int type;
   struct cmd *cmd;
@@ -49,6 +61,16 @@ struct backcmd {
   struct cmd *cmd;
 };
 
+/*----------------/
+  Ordered Command Struct
+/----------------*/
+struct ordcmd {
+  int type;
+  struct cmd *left;
+  struct cmd *right;
+};
+
+
 int fork1(void);  // Fork but panics on failure.
 void panic(char*);
 struct cmd *parsecmd(char*);
@@ -63,6 +85,10 @@ runcmd(struct cmd *cmd)
   struct listcmd *lcmd;
   struct pipecmd *pcmd;
   struct redircmd *rcmd;
+  struct ordcmd *ocmd;
+  {
+    
+  };
 
   if(cmd == 0)
     exit();
@@ -78,7 +104,9 @@ runcmd(struct cmd *cmd)
     exec(ecmd->argv[0], ecmd->argv);
     printf(2, "exec %s failed\n", ecmd->argv[0]);
     break;
-
+      /*----------------/
+        Run Redir Command
+      /----------------*/
   case REDIR:
     rcmd = (struct redircmd*)cmd;
     close(rcmd->fd);
@@ -126,6 +154,18 @@ runcmd(struct cmd *cmd)
     if(fork1() == 0)
       runcmd(bcmd->cmd);
     break;
+
+  /*----------------/
+    Run ORD Command
+  /----------------*/
+
+  case ORD:
+    ocmd = (struct ordcmd*)cmd;
+    if (fork1() == 0)
+        runcmd(lcmd->left);
+    wait();
+    runcmd(lcmd->right);
+    break;
   }
   exit();
 }
@@ -133,7 +173,9 @@ runcmd(struct cmd *cmd)
 int
 getcmd(char *buf, int nbuf)
 {
-  /*CS 450 Prompt Command*/
+  /*--------------------/
+  /CS 450 Prompt Command/
+  *--------------------*/
   printf(2, "CS450$ ");
   memset(buf, 0, nbuf);
   gets(buf, nbuf);
@@ -203,6 +245,9 @@ execcmd(void)
   cmd->type = EXEC;
   return (struct cmd*)cmd;
 }
+  /*---------------------/
+ /REDIR Constructors    /
+/---------------------*/
 
 struct cmd*
 redircmd(struct cmd *subcmd, char *file, char *efile, int mode, int fd)
@@ -257,6 +302,24 @@ backcmd(struct cmd *subcmd)
   cmd->cmd = subcmd;
   return (struct cmd*)cmd;
 }
+
+  /*---------------------/
+ /ORD Constructors    /
+/---------------------*/
+
+struct cmd* ordcmd(struct cmd *left, struct cmd *right)
+{
+  struct ordcmd *cmd;
+
+  cmd = malloc(sizeof(*cmd));
+  memset(cmd, 0, sizeof(*cmd));
+  cmd->type = ORD;
+  cmd->left = left;
+  cmd->right = right;
+  return (struct cmd*)cmd;
+
+}
+
 //PAGEBREAK!
 // Parsing
 
@@ -356,6 +419,15 @@ parseline(char **ps, char *es)
     gettoken(ps, es, 0, 0);
     cmd = listcmd(cmd, parseline(ps, es));
   }
+  /*------------------------
+    Parsing ordcmd 
+  ------------------------*/
+
+  if(peek(ps, es, "()")){
+    gettoken(ps, es, 0, 0);
+    cmd = ordcmd(cmd, parseline(ps, es));
+  }
+
   return cmd;
 }
 
