@@ -86,9 +86,7 @@ runcmd(struct cmd *cmd)
   struct pipecmd *pcmd;
   struct redircmd *rcmd;
   struct ordcmd *ocmd;
-  {
-    
-  };
+  
 
   if(cmd == 0)
     exit();
@@ -162,9 +160,9 @@ runcmd(struct cmd *cmd)
   case ORD:
     ocmd = (struct ordcmd*)cmd;
     if (fork1() == 0)
-        runcmd(lcmd->left);
+        runcmd(ocmd->left);
     wait();
-    runcmd(lcmd->right);
+    runcmd(ocmd->right);
     break;
   }
   exit();
@@ -560,6 +558,12 @@ nulterminate(struct cmd *cmd)
   case BACK:
     bcmd = (struct backcmd*)cmd;
     nulterminate(bcmd->cmd);
+    break;
+
+  case ORD:
+    ocmd = (struct ordcmd*)cmd;
+    nulterminate(ocmd->left);
+    nulterminate(ocmd->right);
     break;
   }
   return cmd;
