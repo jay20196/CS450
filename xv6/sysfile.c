@@ -443,3 +443,73 @@ sys_pipe(void)
   fd[1] = fd1;
   return 0;
 }
+
+/***********************
+ * Trap Counter *
+ ***********************/
+
+/*
+ * Initalize counterArray
+ * and the initFlag
+ */
+int callCounts[23];
+int initFlag = 0;
+
+void updateCount(int syscall);
+
+/*
+ * Function to update count
+ * of a particular system call
+ *
+ * initialize the count array
+ * to zeros if this is the first
+ * time this function is being
+ * called
+ *
+ * then update at the syscall
+ * number array position
+ */
+
+void countTraps(int syscall) {
+
+    struct proc *curproc = myproc();
+
+    // check init flag
+    if (initFlag == 0)
+
+        // init all counts to 0
+        for (int i = 0; i < 23; i++)
+            curproc->trapCount[i] = 0;
+
+    // set init flag
+    initFlag = 1;
+
+    // increment count for syscall
+    curproc->countTraps[syscall]++;
+}
+
+/*
+ * Function to copy counts
+ * for usage in the main program
+ */
+
+int countTraps(void) {
+
+    // init pointer
+    int * counts;
+    int size;
+
+    // get counts pointer and size
+    argint(1, &size);
+    argptr(0, (void*)&counts, size);
+
+    struct proc *curproc = myproc();
+
+    // copy count array to pointer
+    for (int i = 0; i < 23; i++)
+        counts[i] = curproc->trapCount[i];
+
+    return 0;
+}
+
+
