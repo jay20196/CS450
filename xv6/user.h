@@ -23,11 +23,7 @@ int getpid(void);
 char* sbrk(int);
 int sleep(int);
 int uptime(void);
-<<<<<<< HEAD
-int countTraps(void);
-=======
 int countTraps(int *counts, int size);
->>>>>>> 966d615adf8e28cacf30467af3002019ee8e9b16
 
 // ulib.c
 int stat(char*, struct stat*);

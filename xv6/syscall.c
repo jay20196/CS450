@@ -103,11 +103,8 @@ extern int sys_unlink(void);
 extern int sys_wait(void);
 extern int sys_write(void);
 extern int sys_uptime(void);
-<<<<<<< HEAD
-extern int sys_countTraps(void);
-=======
 extern int countTraps(void);
->>>>>>> 966d615adf8e28cacf30467af3002019ee8e9b16
+
 
 static int (*syscalls[])(void) = {
 [SYS_fork]    sys_fork,
@@ -131,13 +128,8 @@ static int (*syscalls[])(void) = {
 [SYS_link]    sys_link,
 [SYS_mkdir]   sys_mkdir,
 [SYS_close]   sys_close,
-<<<<<<< HEAD
 // Include count Trap as a valid system call
-[SYS_countTraps] sys_countTraps,
-=======
-// prj#2 Adding countTraps
 [SYS_countTraps] countTraps
->>>>>>> 966d615adf8e28cacf30467af3002019ee8e9b16
 };
 
 // Static array to keep track of the counts for each syscall
@@ -157,17 +149,14 @@ syscall(void)
   // int num;
   struct proc *curproc = myproc();
 
-<<<<<<< HEAD
+
   // get the trapno
   num = curproc->tf->eax;
-=======
    // initalize lock
     if (init == 0) {
-        initlock(&lock, "getCallCount lock");
+        initlock(&lock, "countTraps lock");
         init = 1;
     }
-
-
 
   int num = curproc->tf->trapno;
 
@@ -180,8 +169,6 @@ syscall(void)
     // release lock
     release(&lock);
 
-
->>>>>>> 966d615adf8e28cacf30467af3002019ee8e9b16
   if(num > 0 && num < NELEM(syscalls) && syscalls[num]) {
     curproc->tf->eax = syscalls[num]();
   } else {

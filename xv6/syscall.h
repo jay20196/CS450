@@ -20,10 +20,5 @@
 #define SYS_link   19
 #define SYS_mkdir  20
 #define SYS_close  21
-<<<<<<< HEAD
-//Insert countTrap
-#define SYS_countTraps 22
-=======
 // prj#2 adding countTrap()
 #define SYS_countTraps  22
->>>>>>> 966d615adf8e28cacf30467af3002019ee8e9b16

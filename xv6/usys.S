@@ -29,9 +29,5 @@ SYSCALL(getpid)
 SYSCALL(sbrk)
 SYSCALL(sleep)
 SYSCALL(uptime)
-<<<<<<< HEAD
-# Insert CountTrap syscall
-=======
 # prj#2 adding countTraps 
->>>>>>> 966d615adf8e28cacf30467af3002019ee8e9b16
 SYSCALL(countTraps)

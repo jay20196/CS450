@@ -49,11 +49,7 @@ struct proc {
   struct file *ofile[NOFILE];  // Open files
   struct inode *cwd;           // Current directory
   char name[16];               // Process name (debugging)
-<<<<<<< HEAD
-  int t_count[256];            // Counter for traps 
-=======
-  int trapCount[22];
->>>>>>> 966d615adf8e28cacf30467af3002019ee8e9b16
+  int trapCount[22];            //Adding Trap counter
 };
 
 // Process memory is laid out contiguously, low addresses first:

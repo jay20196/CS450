@@ -443,12 +443,9 @@ sys_pipe(void)
   fd[1] = fd1;
   return 0;
 }
-
-<<<<<<< HEAD
-=======
-/***********************
+/*-------------------------
  * Trap Counter *
- ***********************/
+-------------------------/
 
 /*
  * Initalize counterArray
@@ -472,7 +469,7 @@ void updateCount(int syscall);
  * number array position
  */
 
-void countTraps(int syscall) {
+void updateCount(int syscall) {
 
     struct proc *curproc = myproc();
 
@@ -514,5 +511,3 @@ int countTraps(void) {
     return 0;
 }
 
-
->>>>>>> 966d615adf8e28cacf30467af3002019ee8e9b16
