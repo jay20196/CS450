@@ -25,6 +25,7 @@ int sleep(int);
 int uptime(void);
 int countTraps(int *counts, int size);
 
+
 // ulib.c
 int stat(char*, struct stat*);
 char* strcpy(char*, char*);

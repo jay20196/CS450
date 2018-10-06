@@ -4,7 +4,7 @@
 #define SYSCALL(name) \
   .globl name; \
   name: \
-    movl $SYS_close, %eax; \
+    movl $SYS_ ## name, %eax; \
     int $T_SYSCALL; \
     ret
 
@@ -29,5 +29,5 @@ SYSCALL(getpid)
 SYSCALL(sbrk)
 SYSCALL(sleep)
 SYSCALL(uptime)
-# prj#2 adding countTraps 
+# system call count trap
 SYSCALL(countTraps)

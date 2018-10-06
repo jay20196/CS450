@@ -14,7 +14,7 @@
 00000000 ulib.c
 00000000 printf.c
 00000360 printint
-00000788 digits.1038
+00000788 digits.1041
 00000000 umalloc.c
 00000a30 freep
 00000a34 base
@@ -54,4 +54,5 @@
 00000130 strchr
 0000031a mkdir
 000002da close
+00000352 countTraps
 000005d0 free

@@ -12,11 +12,11 @@
 00000000 .debug_loc
 00000000 .debug_ranges
 00000000 usertests.c
-00005e20 args.1402
+00005e20 args.1405
 00000000 ulib.c
 00000000 printf.c
 00003950 printint
-000054e8 digits.1038
+000054e8 digits.1041
 00000000 umalloc.c
 00005ea0 freep
 00005ea4 base
@@ -100,4 +100,5 @@
 00001010 fourfiles
 0000390a mkdir
 000038ca close
+00003942 countTraps
 00003bc0 free
