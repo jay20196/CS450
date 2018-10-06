@@ -1,0 +1,27 @@
+COUNTTRAPS(2)          User Manual         COUNTTRAPS(2)
+
+NAME
+     countTraps – count User process trapped to OS.
+
+SYNOPSIS
+     #include “user.h”
+     int countTraps(int count*, int size);
+
+DESCRIPTION
+     countTraps() is a simple xv6 system call that returns
+	the number of times the user process has been trapped to OS.
+	The system call focuses on the initial user process that 
+	starts and updates every times a new process has been called.
+
+RETURN VALUE
+	 countTraps() return the number of the process and the count.
+	 If Error is encountered, the system will return -1.
+ 
+ARGUMENTS
+     There is only two arguements a counter and size that is 
+     defined For each system call in the syscall.h file
+     
+AUTHOR
+     Jay Patel <jpatel71 at hawk dot iit dot edu>
+
+xv6 									  Last change:OCT 2018
